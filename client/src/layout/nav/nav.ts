@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../../core/services/account-service';
+import { BusyService } from '../../core/services/busy-service';
 import { ToastService } from '../../core/services/toast-service';
 import { themes } from '../theme';
 
@@ -13,6 +14,7 @@ import { themes } from '../theme';
 })
 export class Nav implements OnInit {
   protected accountService = inject(AccountService);
+  protected busyService = inject(BusyService);
   private toast = inject(ToastService);
   private router = inject(Router);
   protected creds: any = {};
