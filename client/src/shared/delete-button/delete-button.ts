@@ -1,14 +1,13 @@
 import { Component, input, output } from '@angular/core';
 
 @Component({
-  selector: 'app-favorite-button',
+  selector: 'app-delete-button',
   imports: [],
-  templateUrl: './favorite-button.html',
-  styleUrl: './favorite-button.css',
+  templateUrl: './delete-button.html',
+  styleUrl: './delete-button.css',
 })
-export class FavoriteButton {
+export class DeleteButton {
   disabled = input<boolean>();
-  selected = input<boolean>();
   clickEvent = output<Event>();
 
   onClick(event: Event) {

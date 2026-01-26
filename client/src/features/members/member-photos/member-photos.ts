@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../core/services/account-service';
 import { MemberService } from '../../../core/services/member-service';
+import { DeleteButton } from '../../../shared/delete-button/delete-button';
 import { FavoriteButton } from '../../../shared/favorite-button/favorite-button';
 import { ImageUpload } from '../../../shared/image-upload/image-upload';
 import { Member, Photo } from '../../../types/member';
@@ -9,12 +10,12 @@ import { User } from '../../../types/user';
 
 @Component({
   selector: 'app-member-photos',
-  imports: [ImageUpload, FavoriteButton],
+  imports: [ImageUpload, FavoriteButton, DeleteButton],
   templateUrl: './member-photos.html',
   styleUrl: './member-photos.css',
 })
 export class MemberPhotos implements OnInit {
-  private accountService = inject(AccountService);
+  protected accountService = inject(AccountService);
   protected memberService = inject(MemberService);
   private route = inject(ActivatedRoute);
   protected photos = signal<Photo[]>([]);
@@ -54,6 +55,14 @@ export class MemberPhotos implements OnInit {
               imageUrl: photo.url,
             } as Member)
         );
+      },
+    });
+  }
+
+  deletePhoto(photoId: number) {
+    this.memberService.deletePhoto(photoId).subscribe({
+      next: () => {
+        this.photos.update((photos) => photos.filter((p) => p.id !== photoId));
       },
     });
   }
